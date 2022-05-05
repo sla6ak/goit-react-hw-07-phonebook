@@ -1,6 +1,5 @@
 import { ListPersons } from './ContactList.styled';
 import React from 'react';
-import NotContacts from 'Components/NotContacts/NotContacts';
 import Filter from '../Filter/Filter';
 import Contact from '../Contact/Contact';
 import { useSelector } from 'react-redux';

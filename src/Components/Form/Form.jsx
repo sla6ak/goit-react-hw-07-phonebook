@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { DataPerson, FormPerson, Sabmit, Label } from './Form.styled';
 import propTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+
+import { useAddContactMutation } from 'server/fetchContacts';
 
 export const Form = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const dispatch = useDispatch()
+  const [updatePost] = useAddContactMutation()
 
   // цикл первой загрузки компонента
   useEffect(() => {
@@ -41,7 +42,7 @@ export const Form = () => {
   //внутрений метод сабмита обрабатывающий событие
   const formSubmit = event => {
     event.preventDefault();
-    dispatch();
+    updatePost({ name, number });
     reset();
   };
 

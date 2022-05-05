@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 export const BoxApp = styled.div`
   background-color: rgb(255, 250, 240);
-  width: 320px;
+  width: 460px;
   min-height: 200px;
   margin: 30px auto;
   padding: 20px;

@@ -6,18 +6,22 @@ export const contactApi = createApi({
   reducerPath: 'contactApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://6273e15e345e1821b22351ff.mockapi.io/' }),
   tagTypes: ['Contact'],
-  endpoints: (builder) => ({
+    endpoints: (builder) => ({
+      
     getAllContacts: builder.query({
-      query: () => `contacts/`,
+        query: () => `contacts/`,
+        providesTags: ['Contact'] //тут мы создаем провайдер с ключем за которым необходимо следить
     }),
-      deletedContact: builder.mutation({
+      
+    deletedContact: builder.mutation({
         query: (id) => ({
-        url: `contacts/${id}`,
-        method: 'DELETE',
+            url: `contacts/${id}`,
+            method: 'DELETE',
         }),
-        invalidatesTags: ['Contact'],
-      }),
-      addContact: builder.mutation({
+        invalidatesTags: ['Contact'], // тут мы следим за ключем (эти ключи к кешу где нужно перефечивать данные)
+    }),
+
+    addContact: builder.mutation({
         query: (newContact) => ({
             url: `contacts`,
             method: 'POST',
