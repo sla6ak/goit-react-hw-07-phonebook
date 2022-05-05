@@ -1,37 +1,27 @@
-import { useEffect } from 'react';
+
 import { Form } from './Form/Form';
 import Title from './Title/Title';
 import { BoxApp } from './App.styled';
 import ContactList from './ContactList/ContactList';
 import NotContacts from './NotContacts/NotContacts';
-import { useSelector, useDispatch } from 'react-redux';
-import { apdateInitialContacts } from 'redux/sliceContacts';
+
+import { useGetAllContactsQuery } from 'server/fetchContacts';
+
 
 export const App = () => {
-  const listContacts = useSelector(state => state.items) //это функция получения значения из всего редакс состояния в котором можно обратится к различным свойствам (редьюсерам)
-  const dispatch = useDispatch()
 
-  useEffect(() => {
-    const lCont = localStorage.getItem('contacts');
-    if (lCont) {
-      dispatch(apdateInitialContacts(JSON.parse(lCont)))
-    }
-  }, [dispatch])
-  
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(listContacts));
-  },[listContacts])
+  const { data: listContacts, error, isLoading } = useGetAllContactsQuery() //мы можем присваивать данные в переменные пример listContacts, но можно и пользоваться голой датой как переменной
 
   return (
     <BoxApp>
       <Title text={'Phonebook'} />
-        <Form />
-      <Title text={'Contacts'} />
+      <Form />
 
-      {listContacts.length < 1 ? (
-        <NotContacts text={'The contact list is currently empty'} />
+      <Title text={'Contacts'} />
+      {error ? <NotContacts text={`Data contacts ${error.data}`} /> : isLoading ? (
+        <NotContacts text={'Wite loading now...'} />
         ) : (
-          <ContactList />
+          <ContactList contacts={ listContacts }/>
         )
       }
     </BoxApp>

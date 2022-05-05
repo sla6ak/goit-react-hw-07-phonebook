@@ -1,16 +1,16 @@
 import { Person, DeletedPerson } from './Contact.styled';
 import propTypes from 'prop-types';
 import { FiX } from 'react-icons/fi';
-import { deletedContact } from 'redux/sliceContacts';
-import { useDispatch } from 'react-redux';
+
+import { useDeletedContactMutation } from 'server/fetchContacts';
 
 const Contact = ({ elem }) => {
-  const dispatch = useDispatch()
+  const [ deleted ] = useDeletedContactMutation()
 
   return (
     <Person>
-      {elem.name}: {elem.numberTel}
-      <DeletedPerson onClick={() => dispatch(deletedContact(elem.id))}>
+      {elem.name}: {elem.number}
+      <DeletedPerson onClick={()=> deleted(elem.id)}>
         <FiX />
       </DeletedPerson>
     </Person>

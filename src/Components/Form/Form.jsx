@@ -3,7 +3,6 @@ import { nanoid } from 'nanoid';
 import { DataPerson, FormPerson, Sabmit, Label } from './Form.styled';
 import propTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { addContact } from 'redux/sliceContacts';
 
 export const Form = () => {
   const [name, setName] = useState('');
@@ -42,7 +41,7 @@ export const Form = () => {
   //внутрений метод сабмита обрабатывающий событие
   const formSubmit = event => {
     event.preventDefault();
-    dispatch(addContact({ name, numberTel: number, id: nanoid() }));
+    dispatch();
     reset();
   };
 
